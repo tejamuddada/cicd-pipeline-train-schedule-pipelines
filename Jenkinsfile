@@ -1,17 +1,15 @@
 pipeline {
-  agent any
-  stages {
-    stage ('Build') {
-      steps {
-        echo 'Running build automation'
-        sh './gradlew build --no-daemon'
-        archiveArtifacts artifacts: dist/trainSchedule.zip
-      }
+    agent none 
+    stages {
+        stage('Build') { 
+            agent {
+                docker {
+                    image 'python:2-alpine' 
+                }
+            }
+            steps {
+                sh 'python -m py_compile sources/add2vals.py sources/calc.py' 
+            }
+        }
     }
-    stage ('Test') {
-      steps {
-        echo 'Test completed'
-      }
-    }
-  }
 }
