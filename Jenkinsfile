@@ -8,10 +8,5 @@ pipeline {
         archiveArtifacts artifacts: dist/trainSchedule.zip
       }
     }
-    stage ('Test'){
-      steps {
-        echo 'Test completed successfully'
-      }
-    }
   }
 }
